@@ -1,0 +1,4 @@
+*~
+.ipynb_checkpoints
+/plots/*.png
+/src/plots/*.png
