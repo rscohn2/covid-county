@@ -32,11 +32,12 @@ def process_county(c):
     return d
 
 def plot_county(df, county, state):
+    title = 'Covid-19 in %s, %s\nSee https://github.com/rscohn2/covid-county for code and data source' % (county, state)
     c = process_county(select_county(df, county, state))
-    ax = c.plot('date', 'cases', title='Covid-19 in %s, %s' % (county, state), rot=45)
+    ax = c.plot('date', 'cases', title=title, rot=45)
     c.plot('date', 'deaths', ax=ax)
     p = c.plot('date', 'new_cases', secondary_y=True, ax=ax, rot=45)
-    p.get_figure().savefig(join('plots','%s:%s.png' % (county, state)))
+    p.get_figure().savefig(join('plots','%s:%s.png' % (county, state)), bbox_inches='tight')
     plt.close()
     
 def main():
