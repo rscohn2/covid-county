@@ -3,3 +3,5 @@
 /plots/*.png
 /src/plots/*.png
 us-counties.csv
+/app-engine/static/images/*.png
+/app-engine/static/jsondata/*.json

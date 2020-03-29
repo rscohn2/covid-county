@@ -1,1 +1,93 @@
-Hello World!
+<!DOCTYPE html>
+<head>
+	<meta charset='UTF-8'>
+	
+	<title>Covid-19 Data By County</title>
+	
+	<link rel='stylesheet' href='css/style.css'>
+	
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
+
+	<script>
+        var states;
+
+		$(function() {
+            $( document ).ready(function() {
+                console.log( "ready!" );
+                $.getJSON("jsondata/counties.json", function(data) {
+                    states = data;
+                    var $jsonone = $("#json-one");
+                    var vals = Object.keys(data);
+				    $.each(vals, function(index, value) {
+					    $jsonone.append("<option>" + value + "</option>");
+				    });
+                });
+            });
+			
+			$("#json-one").change(function() {
+			
+			var $dropdown = $(this);
+			
+
+				var key = $dropdown.val();
+				var vals = [];
+
+                if (key in states) {
+                    vals = states[key];
+                } else {
+                    vals = ['Choose State Above'];
+                }
+					
+				var $jsontwo = $("#json-two");
+				$jsontwo.empty();
+                $jsontwo.append("<option> Choose County </option>");
+				$.each(vals, function(index, value) {
+					$jsontwo.append("<option>" + value + "</option>");
+				});
+			
+			});
+
+            $("#json-two").change(function() {
+			
+				var county = $(this).val();
+                var state = $("#json-one").val();
+                $("#plot").attr('src', '/images/' + county + ':' + state + '.png');
+			});
+
+		});
+	</script>
+</head>
+
+<body>
+
+	<div id="page-wrap">
+	
+	
+		<h1>Covid-19 Data By County</h1>
+
+		<select id="json-one">
+			<option selected value="base">Choose State</option>
+		</select>
+	
+		<br />
+	
+		<select id="json-two">
+			<option>Choose State Above</option>
+		</select>
+
+        <br />
+
+        <img id="plot" src="images/Snohomish:Washington.png">
+
+        <h2>Credits</h2>
+
+        <p><a href="https://github.com/nytimes/covid-19-data" target="_blank"> Data </a> by New York Times</p>
+        <p><a href="https://github.com/rscohn2/covid-county" target="_blank"> Code</a> by Robert Cohn</p>
+        <p>Hosting by Google Cloud Platform</p>
+	
+	</div>
+
+	
+</body>
+
+</html>
