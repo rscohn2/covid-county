@@ -45,5 +45,6 @@ def main():
     for c in counties:
         print('%s, %s' % (c[0],c[1]))
         plot_county(df, c[0], c[1])
+        return
 
 main()

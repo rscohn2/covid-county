@@ -1,5 +1,8 @@
-jupyter
+# only for development
+# jupyter
+
 matplotlib
 pandas
 wget
+
 
