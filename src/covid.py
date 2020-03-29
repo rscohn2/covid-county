@@ -2,12 +2,14 @@ import matplotlib
 import matplotlib.pyplot as plt
 from os.path import join
 import pandas as pd
-import wget
+import requests
 
 def fetch():
     name = 'us-counties.csv'
     url = 'https://raw.githubusercontent.com/nytimes/covid-19-data/master/us-counties.csv'
-    wget.download(url, name)
+    r = requests.get(url)
+    with open(name, 'wb') as f:
+        f.write(r.content)
     return name
 
 def read(file):
@@ -46,6 +48,5 @@ def main():
     for c in counties:
         print('%s, %s' % (c[0],c[1]))
         plot_county(df, c[0], c[1])
-        return
 
 main()
