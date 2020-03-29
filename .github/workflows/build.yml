@@ -11,14 +11,15 @@ jobs:
 
       - name: Install and Build 🔧 
         run: |
-	  python3 -m venv venv
-	  . venv/bin/activate
-	  pip install -r requirements.txt
-	  python src/covid.py
+          python3 -m venv venv
+          . venv/bin/activate
+          pip install -r requirements.txt
+          python src/covid.py
 
       - name: Deploy 🚀
         uses: JamesIves/github-pages-deploy-action@releases/v3
         with:
           ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
-          BRANCH: gh-pages # The branch the action should deploy to.
-          FOLDER: build # The folder the action should deploy.
+          BRANCH: gh-pages
+          FOLDER: plots
+          TARGET_FOLDER: plots
