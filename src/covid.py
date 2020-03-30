@@ -1,5 +1,6 @@
 import json
 import matplotlib.pyplot as plt
+import matplotlib.ticker as ticker
 from os.path import join
 import pandas as pd
 import requests
@@ -45,12 +46,16 @@ def process_county(c):
 
 def plot_county(df, county, state):
     prefix = join('app-engine', 'static', 'images')
-    title = ('Covid-19 in %s, %s\nSee https://github.com/rscohn2/covid-county'
+    title = ('COVID-19 in %s, %s\nSee https://github.com/rscohn2/covid-county'
              ' for code and data source' % (county, state))
     c = process_county(select_county(df, county, state))
-    ax = c.plot('date', 'cases', title=title, rot=45)
-    c.plot('date', 'deaths', ax=ax)
-    p = c.plot('date', 'new_cases', secondary_y=True, ax=ax, rot=45)
+    ax = c.plot('date', 'new_cases', title=title, label='new cases', rot=45)
+    tick_spacing = 1
+    #ax.yaxis.set_major_locator(ticker.MultipleLocator(tick_spacing))
+    ax.set_ylim(bottom=0)
+    c.plot('date', 'deaths', label='total deaths', ax=ax)
+    p = c.plot('date', 'cases', label='total cases', secondary_y=True, ax=ax, rot=45)
+    ax.right_ax.set_ylim(bottom=0)
     p.get_figure().savefig(join(prefix, '%s:%s.png' % (county, state)),
                            bbox_inches='tight')
     plt.close()
@@ -68,8 +73,6 @@ def get_plots():
         for c in states[s]:
             print('%s, %s' % (c, s))
             plot_county(df, c, s)
-            break
-        break
 
 
 def main():
