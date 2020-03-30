@@ -1,0 +1,16 @@
+runtime: python37
+instance_class: F2
+# default_expiration: "1 d"
+
+env_variables:
+  BUCKET_NAME: "example-gcs-bucket"
+
+handlers:
+# Matches requests to /images/... to files in static/images/...
+- url: /
+  static_files: static/index.html
+  upload: static/index.html
+
+- url: /(.*\.(gif|png|jpg|json|css))$
+  static_files: static/\1
+  upload: static/.*\.(gif|png|jpg|json|css)$
