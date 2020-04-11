@@ -11,6 +11,6 @@ handlers:
   static_files: static/index.html
   upload: static/index.html
 
-- url: /(.*\.(gif|png|jpg|json|css))$
+- url: /(.*\.(gif|png|jpg|json|css|js))$
   static_files: static/\1
-  upload: static/.*\.(gif|png|jpg|json|css)$
+  upload: static/.*\.(gif|png|jpg|json|css|js)$

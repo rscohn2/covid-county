@@ -8,55 +8,7 @@
 	<link rel="icon" type="image/png" href="/favicon.png">
 
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
-
-	<script>
-        var states;
-
-		$(function() {
-            $( document ).ready(function() {
-                console.log( "ready!" );
-                $.getJSON("jsondata/counties.json", function(data) {
-                    states = data;
-                    var $jsonone = $("#json-one");
-                    var vals = Object.keys(data);
-				    $.each(vals, function(index, value) {
-					    $jsonone.append("<option>" + value + "</option>");
-				    });
-                });
-            });
-			
-			$("#json-one").change(function() {
-			
-			var $dropdown = $(this);
-			
-
-				var key = $dropdown.val();
-				var vals = [];
-
-                if (key in states) {
-                    vals = states[key];
-                } else {
-                    vals = ['Choose State Above'];
-                }
-					
-				var $jsontwo = $("#json-two");
-				$jsontwo.empty();
-                $jsontwo.append("<option> Choose County </option>");
-				$.each(vals, function(index, value) {
-					$jsontwo.append("<option>" + value + "</option>");
-				});
-			
-			});
-
-            $("#json-two").change(function() {
-			
-				var county = $(this).val();
-                var state = $("#json-one").val();
-                $("#plot").attr('src', '/images/' + county + ':' + state + '.png');
-			});
-
-		});
-	</script>
+	<script src="js/covid.js"></script>
 </head>
 
 <body>
@@ -66,13 +18,13 @@
 	
 		<h1>COVID-19 Data By County</h1>
 
-		<select id="json-one">
+		<select id="state">
 			<option selected value="base">Choose State</option>
 		</select>
 	
 		<br />
 	
-		<select id="json-two">
+		<select id="county">
 			<option>Choose State Above</option>
 		</select>
 
